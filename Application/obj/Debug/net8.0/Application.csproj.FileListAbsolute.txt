@@ -1,0 +1,17 @@
+E:\Work\Projects\CustomerOrders\Application\bin\Debug\net8.0\Application.deps.json
+E:\Work\Projects\CustomerOrders\Application\bin\Debug\net8.0\Application.dll
+E:\Work\Projects\CustomerOrders\Application\bin\Debug\net8.0\Application.pdb
+E:\Work\Projects\CustomerOrders\Application\bin\Debug\net8.0\Domain.dll
+E:\Work\Projects\CustomerOrders\Application\bin\Debug\net8.0\Infrastructure.dll
+E:\Work\Projects\CustomerOrders\Application\bin\Debug\net8.0\Infrastructure.pdb
+E:\Work\Projects\CustomerOrders\Application\bin\Debug\net8.0\Domain.pdb
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\Application.csproj.AssemblyReference.cache
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\Application.AssemblyInfoInputs.cache
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\Application.AssemblyInfo.cs
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\Application.csproj.CoreCompileInputs.cache
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\Applicat.44B5EDA2.Up2Date
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\Application.dll
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\refint\Application.dll
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\Application.pdb
+E:\Work\Projects\CustomerOrders\Application\obj\Debug\net8.0\ref\Application.dll

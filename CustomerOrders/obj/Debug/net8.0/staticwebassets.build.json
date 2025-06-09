@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "vBzSvSL3D8OnRQH6DUbMGqRBws1X2U3udxmMbylXoiY=",
+  "Source": "CustomerOrders",
+  "BasePath": "_content/CustomerOrders",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
