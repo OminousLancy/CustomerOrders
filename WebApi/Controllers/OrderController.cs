@@ -20,15 +20,18 @@ public class OrderController(IOrderService orderService) : BaseController
     [HttpPost]
     public async Task<ActionResult<OrderDto>> Create(OrderCreateDto dto, CancellationToken ct = default)
         => Ok(await orderService.CreateAsync(dto, ct));
+    [HttpPost]
+    public async Task<ActionResult<OrderDto>> Update(OrderDto dto, CancellationToken ct = default)
+        => Ok(await orderService.UpdateAsync(dto, ct));
 
     [HttpPost]
-    public async Task<ActionResult<string>> AddOrderLineAsync(OrderLineCreateDto dto, CancellationToken ct = default)
+    public async Task<ActionResult<string>> AddOrderLine(OrderLineCreateDto dto, CancellationToken ct = default)
     {
         await orderService.AddOrderLineAsync(dto, ct);
         return Ok("Добавлено");
     }
     [HttpDelete]
-    public async Task<ActionResult<string>> DeleteOrderLineAsync(int orderId, int orderLineId, CancellationToken ct = default)
+    public async Task<ActionResult<string>> DeleteOrderLine(int orderId, int orderLineId, CancellationToken ct = default)
     {
         await orderService.DeleteOrderLineAsync(orderId, orderLineId, ct);
         return Ok("Удалено");

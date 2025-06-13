@@ -1,0 +1,18 @@
+.header {
+  width: 100%;
+  padding: 10px 0;
+  background: #aaaaaa;
+  display: flex;
+}
+.navigation-link {
+  font: 500 20px 'Montserrat', sans-serif;
+  text-decoration: none;
+  color: #222;
+  margin-right: 10px;
+  &:hover {
+    color: #333fee
+  }
+  &.active {
+    color: #333fee
+  }
+}

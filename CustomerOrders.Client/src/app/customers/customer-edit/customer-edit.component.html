@@ -1,0 +1,16 @@
+<p>{{ mode() }} customer {{data()?.id}}</p>
+<form class="edit-form" [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>LastName</mat-label>
+    <input matInput formControlName="lastName">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address">
+  </mat-form-field>
+  <button mat-raised-button (click)="submit()">{{mode()}}</button>
+</form>

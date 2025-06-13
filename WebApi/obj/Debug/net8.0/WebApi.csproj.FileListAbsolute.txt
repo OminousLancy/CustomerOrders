@@ -17,3 +17,4 @@ E:\Work\Projects\CustomerOrders\WebApi\obj\Debug\net8.0\WebApi.dll
 E:\Work\Projects\CustomerOrders\WebApi\obj\Debug\net8.0\refint\WebApi.dll
 E:\Work\Projects\CustomerOrders\WebApi\obj\Debug\net8.0\WebApi.pdb
 E:\Work\Projects\CustomerOrders\WebApi\obj\Debug\net8.0\ref\WebApi.dll
+E:\Work\Projects\CustomerOrders\WebApi\obj\Debug\net8.0\WebApi.sourcelink.json

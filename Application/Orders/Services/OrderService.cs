@@ -4,6 +4,7 @@ using Application.Orders.Dto;
 using Application.Orders.Interfaces;
 using Application.Products.Dto;
 using Domain.Orders;
+using Domain.Products;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ public class OrderService(ApplicationDbContext context) : IOrderService
             .Select(o => new OrderDto
             {
                 Id = o.Id,
+                CustomerId = o.Customer.Id,
                 CustomerName = o.Customer.Name,
                 Created = o.Created,
                 Updated = o.Updated,
@@ -60,6 +62,8 @@ public class OrderService(ApplicationDbContext context) : IOrderService
 
     public async Task<int> CreateAsync(OrderCreateDto dto, CancellationToken ct = default)
     {
+        if(dto.OrderLines.Count == 0) throw new Exception("Order line count can't be zero.");
+        
         var order = new Order {
             CustomerId = dto.CustomerId,
             Created = DateTime.UtcNow,
@@ -67,14 +71,44 @@ public class OrderService(ApplicationDbContext context) : IOrderService
             OrderLines = dto.OrderLines.Select(l => new OrderLine {
                 ProductId = l.Product.Id,
                 Count = l.Count,
-                Price = l.Price
+                Price = l.Product.Price * l.Count
             }).ToList()
         };
         context.Orders.Add(order);
         await context.SaveChangesAsync(ct);
         return order.Id;
     }
-    
+
+    public async Task<OrderDto> UpdateAsync(OrderDto dto, CancellationToken ct)
+    {
+        var order = await context.Orders
+                        .Include(o => o.OrderLines)
+                        .FirstOrDefaultAsync(c => c.Id == dto.Id, cancellationToken: ct)
+                       ?? throw new Exception("Order not found");
+        
+        if (order.Status is OrderStatus.Completed or OrderStatus.Cancelled)
+            throw new Exception("Cannot modify completed or cancelled order.");
+        
+        var newOrderLines = dto.OrderLines.Select(l => new OrderLine
+        {
+            Id = l.Id,
+            ProductId = l.Product.Id,
+            Count = l.Count,
+            Price = l.Product.Price * l.Count,
+            OrderId = l.OrderId,
+            Product = new Product
+            {
+                Id = l.Product.Id,
+                Name = l.Product.Name,
+                Price = l.Product.Price,
+            }
+        }).ToList();
+        order.OrderLines = newOrderLines;
+        order.Status = dto.Status;
+        order.Updated = DateTime.UtcNow;
+        await context.SaveChangesAsync(ct);
+        return dto;
+    }
     public async Task AddOrderLineAsync(OrderLineCreateDto dto, CancellationToken ct = default) 
     {
         var order = await context.Orders.Include(o => o.OrderLines)
@@ -82,13 +116,13 @@ public class OrderService(ApplicationDbContext context) : IOrderService
             ?? throw new Exception("Order not found");
         
         if (order.Status is OrderStatus.Completed or OrderStatus.Cancelled)
-            throw new InvalidOperationException("Cannot modify completed or cancelled order.");
+            throw new Exception("Cannot modify completed or cancelled order.");
 
         order.OrderLines.Add(new OrderLine {
             OrderId = order.Id,
             ProductId = dto.Product.Id,
             Count = dto.Count,
-            Price = dto.Price
+            Price = dto.Product.Price * dto.Count
         });
         order.Updated = DateTime.UtcNow;
         await context.SaveChangesAsync(ct);
@@ -99,7 +133,7 @@ public class OrderService(ApplicationDbContext context) : IOrderService
             ?? throw new Exception("Order not found");
         
         if (order.Status is OrderStatus.Completed or OrderStatus.Cancelled)
-            throw new InvalidOperationException("Cannot modify completed or cancelled order.");
+            throw new Exception("Cannot modify completed or cancelled order.");
 
         var line = order.OrderLines.FirstOrDefault(l => l.Id == orderLineId);
         if (line != null) {

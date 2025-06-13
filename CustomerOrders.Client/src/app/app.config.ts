@@ -3,7 +3,20 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {provideHttpClient} from '@angular/common/http';
+import {CustomerClient, OrderClient, ProductClient, ReportClient} from './core/services/Client';
+import {API_BASE_URL} from './core/tokens/api-base-url.token';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync()]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideHttpClient(),
+    CustomerClient,
+    OrderClient,
+    ProductClient,
+    ReportClient,
+    {provide: API_BASE_URL, useValue: 'http://localhost:5000'},
+  ]
 };

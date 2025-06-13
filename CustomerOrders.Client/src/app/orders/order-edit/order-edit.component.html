@@ -1,0 +1,57 @@
+<p>{{ mode() }} order {{data()?.id}}</p>
+@if (!canEdit()) {
+  <p>Cancelled or completed orders cannot be edited</p>
+}
+<form class="edit-form" [formGroup]="form">
+  @if (mode() === 'Create' && customers()) {
+    <mat-form-field >
+      <mat-label>Customer</mat-label>
+      <mat-select formControlName="customerId" placeholder="Select Customer" [disabled]="!canEdit()">
+        @for (item of customers()?.items; track item.id) {
+          <mat-option [value]="item.id">
+            #{{item.id}} - {{item.name}} {{item.lastName}}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  }
+  @if (mode() === 'Edit'){
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option [value]="OrderStatus.Created">Created</mat-option>
+        <mat-option [value]="OrderStatus.InProgress">InProgress</mat-option>
+        <mat-option [value]="OrderStatus.Cancelled">Cancelled</mat-option>
+        <mat-option [value]="OrderStatus.Completed">Completed</mat-option>
+      </mat-select>
+    </mat-form-field>
+  }
+  <div style="display: flex; flex-direction: column; margin-top: 1rem;">
+    <ng-container formArrayName="orderLines">
+      @for (_ of orderLines.controls; track _; let index = $index) {
+        <div style="display: flex; align-items: center; gap: 1rem"
+             [formGroupName]="index">
+          <mat-form-field>
+            <mat-label>Select a product</mat-label>
+            <mat-select formControlName="product" required [compareWith]="compareObjects">
+              @for (item of products()?.items; track item.id) {
+                <mat-option [value]="item">{{item.name}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Count</mat-label>
+            <input [min]="1" matInput formControlName="count" type="number">
+          </mat-form-field>
+          <div>
+            {{orderLines.controls[index].value.price | currency}}
+          </div>
+          <button mat-raised-button style="color: red" (click)="removeOrderLine(index)"><mat-icon>delete</mat-icon></button>
+        </div>
+      }
+    </ng-container>
+  </div>
+  <button mat-raised-button (click)="addOrderLine()">Add OrderLine</button>
+  <button mat-raised-button (click)="submit()">{{mode()}}</button>
+</form>

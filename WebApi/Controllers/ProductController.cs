@@ -12,7 +12,7 @@ public class ProductController(IProductService productService) : BaseController
         => Ok(await productService.GetListAsync(page, take, ct));
     
     [HttpPost]
-    public async Task<ActionResult<ProductDto>> Create(ProductCreateDto dto, CancellationToken ct = default)
+    public async Task<ActionResult<int>> Create(ProductCreateDto dto, CancellationToken ct = default)
         => Ok(await productService.CreateAsync(dto, ct));
     
     [HttpPost]

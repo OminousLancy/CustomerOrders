@@ -1,0 +1,29 @@
+<div style="display: flex">
+  <mat-form-field style="margin-right: 20px">
+    <mat-label>Customer</mat-label>
+    <mat-select placeholder="Select Customer" (selectionChange)="selectCustomer($event.value)">
+      @for (item of customers()?.items; track item.id) {
+        <mat-option [value]="item.id">
+          #{{item.id}} - {{item.name}} {{item.lastName}}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>ReportType</mat-label>
+    <mat-select placeholder="Select ReportType" (selectionChange)="selectReportType($event.value)">
+      <mat-option [value]="ReportType.Week">Week</mat-option>
+      <mat-option [value]="ReportType.Month">Month</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<h4>
+  TotalOrders: {{report()?.totalOrders}}
+</h4>
+<h4>
+  TotalSum: {{report()?.totalSum | currency}}
+</h4>
+<h4>
+  MostOrderedProduct: {{report()?.mostOrderedProduct}}
+</h4>
+

@@ -2,3 +2,27 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.edit-form {
+  display: flex;
+  flex-direction: column;
+}
+.status-Created {
+  color: black;
+}
+.status-InProgress {
+  color: orange;
+}
+.status-Completed {
+  color: green;
+}
+.status-Cancelled {
+  color: red;
+}
